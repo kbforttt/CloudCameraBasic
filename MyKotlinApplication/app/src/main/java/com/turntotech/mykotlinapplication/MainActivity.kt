@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         addToLeft()
         addToLeft()
         addToLeft()
@@ -33,7 +34,11 @@ class MainActivity : AppCompatActivity() {
     fun addToLeft() {
         val detailsFragment = SampleFragment()
 
+        detailsFragment.containerId = R.id.Container_LEFT
+
         detailsFragment.text = "Left Fragments Count " + (++leftCount)
+
+
 
         supportFragmentManager
             .beginTransaction()
@@ -44,6 +49,8 @@ class MainActivity : AppCompatActivity() {
 
     fun addToRight() {
         val detailsFragment = SampleFragment()
+
+        detailsFragment.containerId = R.id.Container_RIGHT
 
         detailsFragment.text = "Right Fragments Count " + (++rightCount)
 
@@ -60,10 +67,12 @@ class MainActivity : AppCompatActivity() {
             R.id.bottonLeft -> {
                 findViewById<View>(R.id.Container_LEFT).visibility = View.VISIBLE
                 findViewById<View>(R.id.Container_RIGHT).visibility = View.INVISIBLE
+                supportFragmentManager?.findFragmentById(R.id.Container_LEFT)?.onHiddenChanged(false)
             }
             R.id.bottonRight ->{
                 findViewById<View>(R.id.Container_RIGHT).visibility = View.VISIBLE
                 findViewById<View>(R.id.Container_LEFT).visibility = View.INVISIBLE
+                supportFragmentManager?.findFragmentById(R.id.Container_RIGHT)?.onHiddenChanged(false)
             }
           }
 
