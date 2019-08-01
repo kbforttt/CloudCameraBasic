@@ -8,9 +8,14 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 
+
+
+
 class SampleFragment : Fragment() {
 
     var text : String? = null
+
+    var containerId = 0
 
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -24,11 +29,27 @@ class SampleFragment : Fragment() {
 
         val button= view.findViewById(R.id.button) as Button
         button.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+
+              activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+
         }
+
+        onHiddenChanged(false)
 
         return view
 
+    }
+
+
+    override fun onStop() {
+        super.onStop()
+        activity?.supportFragmentManager?.findFragmentById(containerId)?.onHiddenChanged(true)
+    }
+
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        activity?.title = text
     }
 
 
